@@ -17,8 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include
 from django.urls import path
+from rest_framework import routers
+from csv_upload.views import CsvViewSet
+
+
+router = routers.SimpleRouter()
+router.register("files",CsvViewSet)
+
+urlpatterns = router.urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
+    path('api-auth/', include("rest_framework.urls")),
+     path('api/', include(router.urls)),
 ]
